@@ -3,6 +3,8 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lptp2 -lusb
+LIBS += -lusb
 
-SOURCES += thetahdr.cpp
+SOURCES += thetahdr.cpp \
+    ptp.c \
+    properties.c

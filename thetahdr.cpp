@@ -7,7 +7,7 @@
 
 #include <iostream>
 extern "C" {
-   #include <libptp2/ptp.h>
+   #include "ptp.h"
 }
 #include <cstring>
 #include <usb.h>
@@ -373,13 +373,13 @@ send_generic_request(PTPParams params, uint16_t reqCode, uint32_t *reqParams, ui
     } else {
         if (data != NULL && direction == PTP_DP_GETDATA) {
             display_hexdump(data, malloc_usable_size ((void*)data));
-            //free(data);
         }
         printf("PTP: response OK\n");
     }
     if (data != NULL && direction == PTP_DP_SENDDATA) {
         //free(data);
     }
+    fflush(stdout);
 
     return;
 
@@ -492,6 +492,7 @@ int main(int argc, char *argv[])
     printf("==================\n");
     if (open_camera(busn, devn, force, &ptp_usb, &params, &dev)<0)
         return -1;
+
     printf("Model: %s\n",params.deviceinfo.Model);
     printf("  manufacturer: %s\n",params.deviceinfo.Manufacturer);
     printf("  serial number: '%s'\n",params.deviceinfo.SerialNumber);
